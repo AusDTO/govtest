@@ -10,14 +10,15 @@ document.onreadystatechange = function () {
   if (document.readyState == "interactive") {
 
     var experimentEls = document.querySelectorAll('[experiment]');
-    if(!experimentEls.length) return;
+
+    if(experimentEls.length) {
+      addStyles("[variant=default]{display:none}[variant].active {display:block}");
+
+      Array.prototype.slice.call(experimentEls).map(function(item){
+        experiments[item.getAttribute('experiment')] = makeExperiment(item);
+      });
+    }
     
-    addStyles("[variant=default]{display:none}[variant].active {display:block}");
-
-    Array.prototype.slice.call(experimentEls).map(function(item){
-      experiments[item.getAttribute('experiment')] = makeExperiment(item);
-    });
-
     window[lsKey] = {
       activeExperiments: experiments,
       profile: updateUserProfile(getUserProfile())
