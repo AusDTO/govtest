@@ -74,6 +74,7 @@ It returns an object with the index of the `variant` DOMNode in each `experiment
 govtest.profile
 
 {"Experiment Name": 0}
+```
 
 ## Development
 
