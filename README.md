@@ -21,6 +21,12 @@ In this example, only one of the `variant`s in the `experiment` will display to 
 
 The value of the `variant` attribute can be any string.
 
+### Browser support
+
+Supported: IE9+
+
+IE7+ receive the default variant, but cannot participate in tests. If you support <IE7, you will need to use additional classes and styles to ensure non-default variants are hidden from your visitors.
+
 ## Installation
 
 Include the following markup in your `<head>` block. This needs to load before your actual content does, so that users don’t see a flash of incorrect content.

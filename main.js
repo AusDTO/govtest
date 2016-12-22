@@ -16,55 +16,44 @@ document.onreadystatechange = function () {
 
     Array.prototype.slice.call(experimentEls).map(function(item){
       experiments[item.getAttribute('experiment')] = makeExperiment(item);
-    })
-
-    function makeExperiment(experiment) {
-      var items = experiment.querySelectorAll('[variant]');
-
-      return Array.prototype.slice.call(items).map(makeVariant);
-    }
-
-    function makeVariant(item) {
-      var name = item.getAttribute('variant');
-
-      return {
-        "name": name,
-        "el": item
-      };
-    }
-
-    var profile = updateUserProfile(getUserProfile());
+    });
 
     window[lsKey] = {
       activeExperiments: experiments,
-      profile: profile
+      profile: updateUserProfile(getUserProfile())
     };
   }
-}
+};
 
 function activateExperiment(experiment, variant) {
-  experiment[variant].el.classList.add('active');
+  experiment[variant].el.className += 'active';
   experiment.active = experiment[variant].name || variant;
 }
 
 function addStyles(css) {
-  var head = document.head || document.getElementsByTagName('head')[0],
-      style = document.createElement('style');
+  var style = document.createElement('style');
+  style.appendChild(document.createTextNode(css));
 
-  style.type = 'text/css';
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-
-  head.appendChild(style);
-
-  return style;
+  document.head.appendChild(style);
 }
 
 function getUserProfile() {
   return JSON.parse(localStorage.getItem(lsKey));
+}
+
+function makeExperiment(experiment) {
+  var items = experiment.querySelectorAll('[variant]');
+  
+  return Array.prototype.slice.call(items).map(makeVariant);
+}
+
+function makeVariant(item) {
+  var name = item.getAttribute('variant');
+  
+  return {
+    "name": name,
+    "el": item
+  };
 }
 
 function updateUserProfile(profile){
