@@ -1,4 +1,4 @@
-(function() {
+(function(document) {
 // Data
 
 var experiments = {};
@@ -83,4 +83,4 @@ function updateUserProfile(profile){
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
-})();
+})(document);

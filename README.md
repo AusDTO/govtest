@@ -75,7 +75,18 @@ govtest.profile
 
 {"Experiment Name": 0}
 
-## Timing
+## Development
+
+Requires
+
+- node.js
+- `uglify-js` installed globally (`npm install uglify-js -g`) to run on command line
+
+`npm run build` outputs main.min.js.
+
+Tests needed…
+
+## Some timing info
 
 This script waits `onreadystatechange` to reach `interactive`, which means it won’t block HTML from loading. The `interactive` readystate is the earliest point the underlying content is present in the page, which enables this tool to work declaratively.
 
