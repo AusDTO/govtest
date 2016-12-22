@@ -61,7 +61,7 @@ function updateUserProfile(profile){
 
   for(var exp in experiments)
     if(experiments.hasOwnProperty(exp)){
-      if (!profile[exp]) profile[exp] = Math.floor(
+      if (!profile.hasOwnProperty(exp)) profile[exp] = Math.floor(
           getRandomArbitrary(0, experiments[exp].length)
         );
       activateExperiment(experiments[exp], profile[exp]);
