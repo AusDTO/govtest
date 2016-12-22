@@ -6,12 +6,15 @@ var experiments = {};
 // Profile
 var lsKey = "govtest";
 
-addStyles("[variant=default]{display:none}[variant].active {display:block}");
-
 document.onreadystatechange = function () {
   if (document.readyState == "interactive") {
 
-    Array.prototype.slice.call(document.querySelectorAll('[experiment]')).map(function(item){
+    var experimentEls = document.querySelectorAll('[experiment]');
+    if(!experimentEls.length) return;
+    
+    addStyles("[variant=default]{display:none}[variant].active {display:block}");
+
+    Array.prototype.slice.call(experimentEls).map(function(item){
       experiments[item.getAttribute('experiment')] = makeExperiment(item);
     })
 
