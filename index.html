@@ -8,14 +8,26 @@
 <h1>Non-test content</h1>
 <div class="content-test" experiment="Study in Aus">
   <div variant="default">
-    You'll never believe your eyes
+    Default Variant
   </div>
   <div variant="b">
-    You’ll never believe your eyes 👀
+    Variant B
   </div>
 </div>
 <p>Post-test content</p>
-<script>(function() {
+<script>
+
+
+
+
+
+
+
+
+
+
+
+(function() {
 // Data
 
 var experiments = {};
@@ -29,7 +41,7 @@ document.onreadystatechange = function () {
   if (document.readyState == "interactive") {
 
     Array.prototype.slice.call(document.querySelectorAll('[experiment]')).map(function(item){
-        experiments[item.getAttribute('experiment')] = makeExperiment(item);
+      experiments[item.getAttribute('experiment')] = makeExperiment(item);
     })
 
     function makeExperiment(experiment) {
@@ -47,26 +59,18 @@ document.onreadystatechange = function () {
       };
     }
 
-    updateUserProfile(getUserProfile());
-
-    activateExperiments();
+    var profile = updateUserProfile(getUserProfile());
 
     window[lsKey] = {
       activeExperiments: experiments,
-      profile: getUserProfile()
+      profile: profile
     };
   }
 }
 
-function activateExperiments() {
-    
-  var profile = getUserProfile();
-
-  for(var exp in profile)
-    if(profile.hasOwnProperty(exp)) {
-      var variant = experiments[exp][profile[exp]];
-      experiments[exp][profile[exp]].el.classList.add('active');
-    }
+function activateExperiment(experiment, variant) {
+  experiment[variant].el.classList.add('active');
+  experiment.active = experiment[variant].name || variant;
 }
 
 function addStyles(css) {
@@ -74,7 +78,7 @@ function addStyles(css) {
       style = document.createElement('style');
 
   style.type = 'text/css';
-  if (style.styleSheet){
+  if (style.styleSheet) {
     style.styleSheet.cssText = css;
   } else {
     style.appendChild(document.createTextNode(css));
@@ -94,10 +98,10 @@ function updateUserProfile(profile){
 
   for(var exp in experiments)
     if(experiments.hasOwnProperty(exp)){
-      if (!profile[exp])
-        profile[exp] = Math.floor(
+      if (!profile[exp]) profile[exp] = Math.floor(
           getRandomArbitrary(0, experiments[exp].length)
         );
+      activateExperiment(experiments[exp], profile[exp]);
     }
 
   localStorage.setItem(lsKey, JSON.stringify(profile));
@@ -107,6 +111,28 @@ function updateUserProfile(profile){
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
-}  
-})();</script>
+}
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 </body></html>
+
